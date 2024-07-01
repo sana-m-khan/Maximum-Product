@@ -1,0 +1,63 @@
+/**
+ *
+ * @author S. Khan
+ */
+
+import java.util.ArrayList;
+public class main
+{
+    public static int maxProduct(ArrayList<Integer> nums) {
+        int maxProduct = 0;
+        int pos1 = 0;
+        int pos2 = 0;
+        int negs = 0;
+         
+        if (nums == null || nums.size() == 0) {
+            return 0;
+        }
+
+        for (int i = 0; i < nums.size() - 1; i++) {
+            if(nums.get(i) < 0) {
+                negs += 1; 
+            }
+        }
+        if (negs%2 == 0) {
+            for (int i = 0; i < nums.size() - 1; i++) {
+                if ((nums.get(i)) * (nums.get(i+1)) > maxProduct) {
+                    maxProduct = (nums.get(i))*(nums.get(i+1));   
+                    pos1 = i+1;
+                    pos2 = i+2;
+                }
+            }
+        }
+        else if (negs%2 != 0) {
+            for (int i = 0; i < nums.size() - 1; i++) {
+                while (nums.get(i) > 0) {
+                    if ((nums.get(i)) * (nums.get(i+1)) > maxProduct) {
+                        maxProduct = (nums.get(i))*(nums.get(i+1));   
+                        pos1 = i+1;
+                        pos2 = i+2;
+                    }
+                    break;
+                }
+                while (nums.get(i) < 0) {
+                    i++;
+                    break;
+                }
+
+            }
+
+        }
+        return maxProduct;
+
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Integer> Foo = new ArrayList<>();
+        Foo.add(-2);
+        Foo.add(0);
+        Foo.add(-1); 
+        
+        System.out.println(maxProduct(Foo));
+    }
+}
